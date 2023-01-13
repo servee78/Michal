@@ -1,0 +1,9 @@
+
+application:
+  scoreboard:
+    comport: COM5
+
+logging:
+  level:
+    root: ERROR
+    pl.sansoft.scoreboard: WARN

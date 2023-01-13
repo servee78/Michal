@@ -1,0 +1,15 @@
+
+application:
+  scoreboard:
+    filename: c:/Users/bserwatko/git/sts-scoreboard/R&D/dane/2022.03.26/mecz.hex
+
+logging:
+  level:
+    root: ERROR
+    pl.sansoft.scoreboard: WARN
+    pl.sansoft.scoreboard.RawDataProcessor: WARN
+    pl.sansoft.scoreboard.ScoreboardData: INFO
+    pl.sansoft.scoreboard.updaters.ScorePeriodTimeoutUpdater: INFO
+    pl.sansoft.scoreboard.updaters.PenaltyUpdater: INFO
+    pl.sansoft.scoreboard.interpreters: WARN
+    

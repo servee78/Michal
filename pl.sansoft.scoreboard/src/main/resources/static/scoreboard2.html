@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Czas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="styles.css">
+	<script src="moment.js"></script>
+	<script src="scoreboard.js"></script>
+	<script type="text/javascript">
+
+		emptyPenalty = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+		function updateView(data) {
+			const time = moment.duration(data.time);
+			document.getElementById("period").innerHTML = data.period;
+			document.getElementById("time").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss.S');
+			document.getElementById("homeScore").innerHTML = data.homeScore;
+			document.getElementById("visitorScore").innerHTML = data.visitorScore;
+
+			if (data.timeout == null) {
+				document.getElementById("timeout").style.display = 'none';
+			} else {
+				const timeout = moment.duration(data.timeout);
+				document.getElementById("timeout").style.display = 'block';
+				document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
+			}
+
+			for (i = 0; i < 3; i++) {
+				penalty = data.homePenalties[i];
+				elementId = "ph" + (i + 1);
+				if (penalty == null) {
+					document.getElementById(elementId).innerHTML = emptyPenalty;
+					//document.getElementById(elementId).style.display = 'none';
+				} else {
+					penaltyDuration = moment.duration(penalty.duration);
+					document.getElementById(elementId).innerHTML = String(penalty.playerNo).padStart(2, '\u00A0') + ' '
+						+ moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+				}
+
+
+				penalty = data.visitorPenalties[i];
+				elementId = "pv" + (i + 1);
+				if (penalty == null) {
+					document.getElementById(elementId).innerHTML = emptyPenalty;
+					//document.getElementById(elementId).style.display = 'none';
+				} else {
+					penaltyDuration = moment.duration(penalty.duration);
+					document.getElementById(elementId).innerHTML = String(penalty.playerNo).padStart(2, '\u00A0') + ' '
+						+ moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+				}
+			}
+
+		}
+	</script>
+
+</head>
+
+<body>
+	<div id="period">
+		2
+	</div>
+	<div id="time">
+		01:20.3
+	</div>
+	<div class="bottomLine">
+		<div class="penalty">
+			<div id="ph1">14 1:49</div>
+			<div id="ph2">15 1:50</div>
+			<div id="ph3">16 1:51</div>
+		</div>
+		<div class="score">
+			<div id="homeScore">
+				3
+			</div>
+			<div>:</div>
+			<div id="visitorScore">
+				2
+			</div>
+		</div>
+		<div class="penalty">
+			<div id="pv1">24 0:49</div>
+			<div id="pv2">24 0:50</div>
+			<div id="pv3">24 0:51</div>
+		</div>
+	</div>
+	<div id="timeout">--</div>
+</body>
+
+</html>

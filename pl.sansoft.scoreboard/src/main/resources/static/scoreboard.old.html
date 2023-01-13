@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Czas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="styles.css">
+	<script src="moment.js"></script>
+	<script type="text/javascript">
+
+
+		function getScoreboardData() {
+
+			var xhr = new XMLHttpRequest();
+			xhr.withCredentials = true;
+			xhr.overrideMimeType("application/json");
+			xhr.onload = () => {
+				const data = JSON.parse(xhr.responseText);
+				console.log(data);
+
+				const time = moment.duration(data.time);
+				document.getElementById("period").innerHTML = data.period;
+				document.getElementById("time").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss.S');
+				document.getElementById("homeScore").innerHTML = data.homeScore;
+				document.getElementById("visitorScore").innerHTML = data.visitorScore;
+				
+				if(data.timeout == null){
+					document.getElementById("timeout").innerHTML = '--';
+				} else{
+					const timeout = moment.duration(data.timeout);
+					document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
+				}
+			}
+
+			xhr.onerror = () => {
+				console.log('Error');
+			}
+			xhr.open("GET", "http://localhost:8080/scoreboardData");
+
+			xhr.send();
+		}
+
+		setInterval(getScoreboardData, 50);
+
+	</script>
+
+</head>
+
+<body>
+	<div id="timeout">30</div>
+	<div id="period">
+		2
+	</div>
+	<div id="time">
+		01:20.3
+	</div>
+	<div class="score">
+		<div id="homeScore">
+			3
+		</div>
+		<div>:</div>
+		<div id="visitorScore">
+			2
+		</div>
+	</div>
+</body>
+
+</html>

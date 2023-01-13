@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Czas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>		
+		body {
+		  background-color: white;
+		  color: black;
+		  text-align: left;
+		  font-size: 120px;
+		  font-family: digital7;
+		}		
+		@font-face {
+		  font-family: digital7;
+		  src: url(fonts/Digital7Mono-B1g5.ttf);
+		}
+
+	</style>
+	<script src="moment.js"></script>
+	<script src="scoreboard.js"></script>
+	<script type="text/javascript">
+
+		function updateView(data) {
+			const time = moment.duration(data.time);
+			document.getElementById("score").innerHTML = data.homeScore+" : "+data.visitorScore;			
+		}
+	</script>
+
+</head>
+
+<body>
+	<div id="score">
+		3:2
+	</div>
+</body>
+
+</html>

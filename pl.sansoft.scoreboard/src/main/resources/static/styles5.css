@@ -1,0 +1,101 @@
+
+
+body {
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-style: none;
+  border-color: white;
+}
+
+div{
+	border-style: none;
+}
+.viewport{
+	height: 240px;
+	border-style: dotted;
+	border-color: white;
+}
+
+.row{
+	border-style: dotted;
+	border-color: white;
+
+	display: grid;	
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+.label{
+	font-size: 80px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	/*font-family: 'Courier New', Courier, monospace;*/
+	margin: 10px;
+	text-align: center;
+	vertical-align: middle;
+	padding: 15px;
+}
+.label1{
+	font-size: 100px;
+}
+.label2{
+	font-size: 75px;
+}
+
+.data{
+	font-size: 100px;
+	font-family: digital7;
+	background-color: black;
+	color: red;
+	margin: 15px;
+	border-style: dashed;
+	border-color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.score{
+	font-size: 120px;
+}
+
+.penalty-no {
+	width: 120px;
+	color: yellow;
+	/*margin-left: 70px*/
+}
+.penalty-time{
+	width: 250px;
+}
+
+#timer{
+	font-size: 120px;
+	border-style: solid;
+	border-color: white;
+	border-radius: 5px;
+	color: yellow;
+}
+#period{
+	color: yellow;
+	width: 100px;
+}
+#timeout{
+	color: green;
+	width: 100px;
+}
+.spacing{
+	height: 60px;
+}
+#logo{
+	width: 500px;
+	border-style: solid;
+	border-radius: 5;
+	border-color: black;
+}
+@font-face {
+  font-family: digital7;
+  src: url(fonts/Digital7Mono-B1g5.ttf);
+}
+@font-face {
+  font-family: Fstein;
+  src: url(fonts/Fstein-Ja3j.ttf);
+}
