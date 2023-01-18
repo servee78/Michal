@@ -1,0 +1,120 @@
+.position{
+    opacity: 1;
+    margin-top: 32px;
+    margin-left: 48px;
+}
+.scoreboard{
+
+    color: white;
+    width: 900px;
+    max-height: 64px !important;
+}
+/* .logo{
+    background-color: rgba(87, 87, 87,  0.425);
+    height: 64px;
+    border: 2px solid grey;
+}
+.image{
+    height: 80px;
+} */
+.score{
+    position: relative;
+    margin-top: -14px;
+    padding-bottom: 10px;
+    font-size: 70px;
+    font-weight: 700;
+    height: 92px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+#visitorScore{
+    background-color: rgb(158, 4, 0.98);
+    border-left: 0.5px solid grey;
+    border-right: 1px solid grey;
+}
+#homeScore{
+    background-color: rgba(4, 12, 87, 0.98);
+    border-right: 0.5px solid grey;
+    border-left: 1px solid grey;
+}
+.period{
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 34px;
+    font-weight: 700;
+    height: 64px;
+    border-top: 1px solid rgb(31, 31, 31);
+    border-bottom: 1px solid rgb(31, 31, 31);    
+}
+.timer{
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 42px;
+    font-weight: 700;
+    height: 64px;
+    border: 1px solid rgb(31, 31, 31);
+}
+.timeout{
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 42px;
+    font-weight: 700;
+    height: 64px;
+    border: 2px solid rgba(2, 136, 20, 0.829);
+}
+#timeout-notification{
+    display: none;
+}
+.name{
+    height: 64px;
+    font-size: 42px;
+    font-weight: 500;
+    /* border-top: 1px solid grey;
+    border-bottom: 1px solid grey; */
+}
+#nameh{
+    background-color: rgba(4, 12, 87, 0.98);
+}
+#namev{
+    background-color: rgba(158, 4, 4, 0.98);
+}
+.penalty{
+    display: none;
+    margin-top: -14px;
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 26px;
+    height: 30px;
+    border: 1px solid rgb(83, 83, 83);
+}
+.penalty2{
+    display: none;
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 26px;
+    height: 30px;
+    border: 1px solid rgb(83, 83, 83);
+}
+#ph0-section{
+    display: none;
+}
+#ph1-section{
+    display: none;
+}
+#ph2-section{
+    display: none;
+}
+#pv0-section{
+    display: none;
+}
+#pv1-section{
+    display: none;
+}
+#pv2-section{
+    display: none;
+}
+
+/* .penalty-notification{
+    margin-top: -14px;
+    margin-left: -2px;
+    width: 409px;
+    background-color: rgba(48, 48, 48, 0.849);
+    font-size: 42px;
+    height: 64px;
+    border: 1px solid rgb(83, 83, 83);
+} */

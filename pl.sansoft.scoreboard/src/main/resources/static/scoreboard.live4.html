@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Czas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="styles.live4.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+	<script src="moment.js"></script>
+	<script src="scoreboardFake.js"></script>
+	<script type="text/javascript">
+	
+		empty = '&nbsp';
+		function updateView(data) {
+			const time = moment.duration(data.time);
+            document.getElementById("period").innerHTML = data.period;
+            if (data.period == 1){
+                document.getElementById("period-name").innerHTML = "ST";
+            }else if(data.period == 2){
+                document.getElementById("period-name").innerHTML = "ND";
+            }else if(data.period == 3){
+                document.getElementById("period-name").innerHTML = "RD";
+            }else{
+                document.getElementById("period-name").innerHTML = empty;
+            }
+			document.getElementById("timer").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss');
+			document.getElementById("homeScore").innerHTML = data.homeScore;
+			document.getElementById("visitorScore").innerHTML = data.visitorScore;
+
+			if (data.timeout == null) {
+				document.getElementById("timeout-notification").style.display = 'none';
+				// document.getElementById("timeout").innerHTML = empty;
+			} else {
+				const timeout = moment.duration(data.timeout);
+				document.getElementById("timeout-notification").style.display = 'block';
+				document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
+			}
+
+			for (i = 0; i < 2; i++) {
+				penalty = data.homePenalties[i];
+				elementId = "ph";
+				if (penalty == null) {
+                    document.getElementById("ph"+i+"-section").style.display = 'none'
+					document.getElementById("phn"+i).innerHTML = empty;
+					document.getElementById("pht"+i).innerHTML = empty;
+					//document.getElementById(elementId).style.display = 'none';
+				} else {
+					penaltyDuration = moment.duration(penalty.duration);
+                    document.getElementById("ph"+i+"-section").style.display = 'block'
+					document.getElementById("phn"+i).innerHTML = penalty.playerNo;
+					document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+				}
+
+				penalty = data.visitorPenalties[i];
+				elementId = "pv" + (i + 1);
+				if (penalty == null) {
+                    document.getElementById("pv"+i+"-section").style.display = 'none'
+					document.getElementById("pvn"+i).innerHTML = empty;
+					document.getElementById("pvt"+i).innerHTML = empty;
+					//document.getElementById(elementId).style.display = 'none';
+				} else {
+					penaltyDuration = moment.duration(penalty.duration);		
+                    document.getElementById("pv"+i+"-section").style.display = 'block'			
+					document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
+					document.getElementById("pvt"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+    <section class="position">
+        <div class="scoreboard">
+            <div class="row g-0">
+                <!-- <div class="col">
+                    <div class="logo d-flex justify-content-center align-items-center">
+                        <img class="image" src="https://www.sts.sanok.pl/images/STS_Sanok_logotyp_standard_RGB.png">
+                    </div>
+                </div> -->
+                <div class="col-2">
+                    <div class="name d-flex justify-content-center align-items-center" id="nameh">
+                        HOME
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="score d-flex justify-content-center align-items-center" id="homeScore">
+                        3
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="score d-flex justify-content-center align-items-center" id="visitorScore">
+                        2
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="name d-flex justify-content-center align-items-center" id="namev">
+                        VISIT
+                    </div>
+                </div>
+                <!-- <div class="col">
+                    <div class="logo d-flex justify-content-center align-items-center">
+                        <img class="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gkstychy.png/1200px-Gkstychy.png">
+                    </div>
+                </div> -->
+                <div class="col-2">
+                    <div class="period d-flex justify-content-center align-items-center px-2">
+                        <div class="pe-2" id="period">
+                            1
+                        </div>
+                        <div class="period-name" id="period-name">
+                            ST
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="timer d-flex justify-content-center align-items-center px-2" id="timer">
+                        20:00
+                    </div>
+                </div>
+                <div class="col-2" id="timeout-notification">
+                    <div class="timeout d-flex justify-content-center align-items-center px-2" id="timeout">                
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-2">
+                    <div class="col-12" id="ph0-section">
+                        <div class="penalty d-flex justify-content-start align-items-center px-2">
+                            <div class="col-6 penalty-no" id="phn0">
+                                1
+                            </div>
+                            <div class="col-6 penalty-time" id="pht0">
+                                01:53
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <div class="col-12" id="pv0-section">
+                        <div class="penalty d-flex justify-content-end align-items-center px-2">
+                            <div class="col-6 penalty-no" id="pvn0">
+                                2
+                            </div>
+                            <div class="col-6 penalty-time" id="pvt0">
+                                01:34
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-2">
+                    <div class="col-12" id="ph1-section">
+                        <div class="penalty2 d-flex justify-content-start align-items-center px-2">
+                            <div class="col-6 penalty-no" id="phn1">
+                                11
+                            </div>
+                            <div class="col-6 penalty-time" id="pht1">
+                                01:43
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <div class="col-12" id="pv1-section">
+                        <div class="penalty2 d-flex justify-content-end align-items-center px-2">
+                            <div class="col-6 penalty-no" id="pvn1">
+    
+                            </div>
+                            <div class="col-6 penalty-time" id="pvt1">
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-2">
+                    <div class="col-12" id="ph2-section">
+                        <div class="penalty2 d-flex justify-content-start align-items-center px-2">
+                            <div class="col-6 penalty-no" id="phn2">
+    
+                            </div>
+                            <div class="col-6 penalty-time" id="pht2">
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <div class="col-12" id="pv2-section">
+                        <div class="penalty2 d-flex justify-content-end align-items-center px-2">
+                            <div class="col-6 penalty-no" id="pvn2">
+    
+                            </div>
+                            <div class="col-6 penalty-time" id="pvt2">
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>

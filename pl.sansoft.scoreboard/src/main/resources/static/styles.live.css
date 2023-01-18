@@ -1,0 +1,63 @@
+.position{
+    opacity: 1;
+    margin-top: 32px;
+    margin-left: 48px;
+}
+.scoreboard{
+
+    color: white;
+    width: 700px;
+    max-height: 64px !important;
+}
+.logo{
+    background-color: rgba(87, 87, 87, 0.725);
+    height: 64px;
+    /* border: 2px solid grey; */
+}
+.image{
+    height: 80px;
+}
+.score{
+    margin-top: -14px;
+    padding-bottom: 10px;
+    font-size: 70px;
+    font-weight: 700;
+    height: 92px;
+    border: 2px solid grey;
+}
+#visitorScore{
+    background-color: rgb(158, 4, 0.98);
+}
+#homeScore{
+    background-color: rgba(4, 12, 87, 0.98);
+}
+.period{
+    background-color: grey;
+    font-size: 34px;
+    font-weight: 700;
+    height: 64px;
+    border-top: 1px solid rgb(83, 83, 83);
+    border-bottom: 1px solid rgb(83, 83, 83);
+    border-left: 1px solid rgb(83, 83, 83);
+     
+}
+.timer{
+    background-color: grey;
+    font-size: 42px;
+    font-weight: 700;
+    height: 64px;
+    border: 1px solid rgb(83, 83, 83);
+}
+.name{
+    height: 64px;
+    font-size: 42px;
+    font-weight: 500;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+#nameh{
+    background-color: rgba(4, 12, 87, 0.98);
+}
+#namev{
+    background-color: rgba(158, 4, 4, 0.98);
+}

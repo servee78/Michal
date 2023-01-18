@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Czas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="styles.live3.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="moment.js"></script>
+	<!-- <script src="scoreboard.js"></script> -->
+	<script type="text/javascript">
+	
+		empty = '&nbsp';
+		function updateView(data) {
+			const time = moment.duration(data.time);
+            document.getElementById("period").innerHTML = data.period;
+            if (data.period == 1){
+                document.getElementById("period-name").innerHTML = "ST";
+            }else if(data.period == 2){
+                document.getElementById("period-name").innerHTML = "ND";
+            }else if(data.period == 3){
+                document.getElementById("period-name").innerHTML = "RD";
+            }else{
+                document.getElementById("period-name").innerHTML = empty;
+            }
+			document.getElementById("timer").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss.S');
+			document.getElementById("homeScore").innerHTML = data.homeScore;
+			document.getElementById("visitorScore").innerHTML = data.visitorScore;
+
+			if (data.timeout == null) {
+				//document.getElementById("timeout").style.display = 'none';
+				document.getElementById("timeout").innerHTML = empty;
+			} else {
+				const timeout = moment.duration(data.timeout);
+				//document.getElementById("timeout").style.display = 'block';
+				document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
+			}
+		}
+	</script>
+
+</head>
+<body>
+    <section class="position">
+        <div class="scoreboard">
+            <div class="row g-0">
+                <!-- <div class="col">
+                    <div class="logo d-flex justify-content-center align-items-center">
+                        <img class="image" src="https://www.sts.sanok.pl/images/STS_Sanok_logotyp_standard_RGB.png">
+                    </div>
+                </div> -->
+                <div class="col">
+                    <div class="name d-flex justify-content-center align-items-center" id="nameh">
+                        STS
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="score d-flex justify-content-center align-items-center" id="homeScore">
+                        3
+                    </div>
+                </div>
+                <div class="col-1" style="margin-left: -2px;">
+                    <div class="score d-flex justify-content-center align-items-center" id="visitorScore">
+                        2
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="name d-flex justify-content-center align-items-center" id="namev">
+                        GKS
+                    </div>
+                </div>
+                <!-- <div class="col">
+                    <div class="logo d-flex justify-content-center align-items-center">
+                        <img class="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gkstychy.png/1200px-Gkstychy.png">
+                    </div>
+                </div> -->
+                <div class="col">
+                    <div class="period d-flex justify-content-center align-items-center px-2">
+                        <div class="pe-2" id="period">
+                            1
+                        </div>
+                        <div class="period-name">
+                            ST
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="timer d-flex justify-content-center align-items-center px-2" id="timer">
+                        20:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>
