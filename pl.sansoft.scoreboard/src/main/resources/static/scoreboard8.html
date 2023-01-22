@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="styles8.css">
 	<script src="moment.js"></script>
-	<script src="scoreboard.js"></script>
+	<script src="scoreboard.sse.js"></script>
 	<script type="text/javascript">
 	
 		empty = '&nbsp';
@@ -26,31 +26,73 @@
 				document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
 			}
 
-			for (i = 0; i < 2; i++) {
-				penalty = data.homePenalties[i];
-				elementId = "ph";
-				if (penalty == null) {
-					document.getElementById("phn"+i).innerHTML = empty;
-					document.getElementById("pht"+i).innerHTML = empty;
-					//document.getElementById(elementId).style.display = 'none';
-				} else {
-					penaltyDuration = moment.duration(penalty.duration);
-					document.getElementById("phn"+i).innerHTML = penalty.playerNo;
-					document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
-				}
+			// Handle empty penalties that it doesn't throw an error in the console
+                if(data.homePenalties == null){
+                    for(i = 0; i < 2; i++){
+                        document.getElementById("phn"+i).innerHTML = empty;
+                        document.getElementById("pht"+i).innerHTML = empty;
+                    }
+                }else{
+                    for(i = 0; i < 2; i++){
+                        penalty = data.homePenalties[i];
+                        if(penalty == null){
+                            document.getElementById("phn"+i).innerHTML = empty;
+                            document.getElementById("pht"+i).innerHTML = empty;
+                        }else{
+                            penaltyDuration = moment.duration(penalty.duration);
+                            document.getElementById("phn"+i).innerHTML = penalty.playerNo;
+                            document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+                        }
+                    }
+                }
 
-				penalty = data.visitorPenalties[i];
-				elementId = "pv" + (i + 1);
-				if (penalty == null) {
+
+			// Handle empty penalties that it doesn't throw an error in the console
+			if(data.visitorPenalties == null){
+				for(i = 0; i < 2; i++){
 					document.getElementById("pvn"+i).innerHTML = empty;
 					document.getElementById("pvt"+i).innerHTML = empty;
-					//document.getElementById(elementId).style.display = 'none';
-				} else {
-					penaltyDuration = moment.duration(penalty.duration);					
-					document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
-					document.getElementById("pvt"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+				}
+			}else{
+				for(i = 0; i < 2; i++){
+					penalty = data.visitorPenalties[i];
+					if(penalty == null){
+						document.getElementById("pvn"+i).innerHTML = empty;
+						document.getElementById("pvt"+i).innerHTML = empty;
+					}else{
+						penaltyDuration = moment.duration(penalty.duration);				
+						document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
+						document.getElementById("pvt"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+					}
 				}
 			}
+
+			// Old version
+			// for (i = 0; i < 2; i++) {
+			// 	penalty = data.homePenalties[i];
+			// 	elementId = "ph";
+			// 	if (penalty == null) {
+			// 		document.getElementById("phn"+i).innerHTML = empty;
+			// 		document.getElementById("pht"+i).innerHTML = empty;
+			// 		//document.getElementById(elementId).style.display = 'none';
+			// 	} else {
+			// 		penaltyDuration = moment.duration(penalty.duration);
+			// 		document.getElementById("phn"+i).innerHTML = penalty.playerNo;
+			// 		document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+			// 	}
+
+			// 	penalty = data.visitorPenalties[i];
+			// 	elementId = "pv" + (i + 1);
+			// 	if (penalty == null) {
+			// 		document.getElementById("pvn"+i).innerHTML = empty;
+			// 		document.getElementById("pvt"+i).innerHTML = empty;
+			// 		//document.getElementById(elementId).style.display = 'none';
+			// 	} else {
+			// 		penaltyDuration = moment.duration(penalty.duration);					
+			// 		document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
+			// 		document.getElementById("pvt"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+			// 	}
+			// }
 		}
 	</script>
 

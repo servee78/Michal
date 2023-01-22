@@ -16,7 +16,7 @@ visitorPenalties = [{"playerNo": 22, "duration": str(datetime.timedelta(seconds=
 
 @app.route("/scoreboardData")
 def countdown():
-    event_time = datetime.datetime(2023, 1, 18, 8, 37, 0)
+    event_time = datetime.datetime(2023, 1, 22, 8, 37, 0)
     current_time = datetime.datetime.now()
     time = (event_time - current_time)
     time = time.total_seconds() 

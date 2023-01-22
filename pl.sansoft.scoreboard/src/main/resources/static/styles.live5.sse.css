@@ -4,7 +4,6 @@
     margin-left: 48px;
 }
 .scoreboard{
-
     color: white;
     width: 900px;
     max-height: 64px !important;
@@ -108,12 +107,6 @@
 #pv2-section{
     display: none;
 }
-/* .penalty-notification{
-    margin-top: -14px;
-    margin-left: -2px;
-    width: 409px;
-    background-color: rgba(48, 48, 48, 0.849);
-    font-size: 42px;
-    height: 64px;
-    border: 1px solid rgb(83, 83, 83);
-} */
+.penalty-no{
+    color: yellow;
+}

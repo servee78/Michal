@@ -4,72 +4,80 @@
 <head>
 	<title>Czas</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="styles.live4.css">
+	<link rel="stylesheet" href="styles.live5.sse.css">
     <link rel="stylesheet" href="bootstrap.min.css">
 	<script src="moment.js"></script>
-	<script src="scoreboard.js"></script>
+	<script src="scoreboard.sse.js"></script>
 	<script type="text/javascript">
 	
-		empty = '&nbsp';
+    empty = '&nbsp';
 		function updateView(data) {
-			const time = moment.duration(data.time);
-            document.getElementById("period").innerHTML = data.period;
-            if (data.period == 1){
-                document.getElementById("period-name").innerHTML = "ST";
-            }else if(data.period == 2){
-                document.getElementById("period-name").innerHTML = "ND";
-            }else if(data.period == 3){
-                document.getElementById("period-name").innerHTML = "RD";
+            if (!data){
+                document.getElementById("scoreboard-position").style.opacity = 0;
             }else{
-                document.getElementById("period-name").innerHTML = empty;
-            }
-			document.getElementById("timer").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss');
-			document.getElementById("homeScore").innerHTML = data.homeScore;
-			document.getElementById("visitorScore").innerHTML = data.visitorScore;
+                document.getElementById("scoreboard-position").style.opacity = 1;
+                const time = moment.duration(data.time);
+                document.getElementById("period").innerHTML = data.period;
+                if (data.period == 1){
+                    document.getElementById("period-name").innerHTML = "ST";
+                }else if(data.period == 2){
+                    document.getElementById("period-name").innerHTML = "ND";
+                }else if(data.period == 3){
+                    document.getElementById("period-name").innerHTML = "RD";
+                }else{
+                    document.getElementById("period-name").innerHTML = empty;
+                }
+                document.getElementById("timer").innerHTML = moment.utc(time.as('milliseconds')).format('mm:ss');
+                document.getElementById("homeScore").innerHTML = data.homeScore;
+                document.getElementById("visitorScore").innerHTML = data.visitorScore;
+    
+                if (data.timeout == null) {
+                    document.getElementById("timeout-notification").style.display = 'none';
+                    // document.getElementById("timeout").innerHTML = empty;
+                } else {
+                    const timeout = moment.duration(data.timeout);
+                    document.getElementById("timeout-notification").style.display = 'block';
+                    document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
+                }
 
-			if (data.timeout == null) {
-				document.getElementById("timeout-notification").style.display = 'none';
-				// document.getElementById("timeout").innerHTML = empty;
-			} else {
-				const timeout = moment.duration(data.timeout);
-				document.getElementById("timeout-notification").style.display = 'block';
-				document.getElementById("timeout").innerHTML = moment.utc(timeout.as('milliseconds')).format('ss');
-			}
-
-            for (i = 0; i < 2; i++) {
-                    if(data.homePenalties == null){
+			    // Handle empty penalties that it doesn't throw an error in the console
+                if(data.homePenalties == null){
+                    for(i = 0; i < 2; i++){
                         document.getElementById("ph"+i+"-section").style.display = 'none'
                         document.getElementById("phn"+i).innerHTML = empty;
                         document.getElementById("pht"+i).innerHTML = empty;
-                    }else{
+                    }
+                }else{
+                    for(i = 0; i < 2; i++){
                         penalty = data.homePenalties[i];
-                        elementId = "ph";
-                        if (penalty == null) {
+                        if(penalty == null){
                             document.getElementById("ph"+i+"-section").style.display = 'none'
                             document.getElementById("phn"+i).innerHTML = empty;
                             document.getElementById("pht"+i).innerHTML = empty;
-                            //document.getElementById(elementId).style.display = 'none';
-                        } else {
+                        }else{
                             penaltyDuration = moment.duration(penalty.duration);
                             document.getElementById("ph"+i+"-section").style.display = 'block'
                             document.getElementById("phn"+i).innerHTML = penalty.playerNo;
                             document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
                         }
                     }
-                        
-                    if(data.visitorPenalties == null){
+                }
+
+			    // Handle empty penalties that it doesn't throw an error in the console
+                if(data.visitorPenalties == null){
+                    for(i = 0; i < 2; i++){
                         document.getElementById("pv"+i+"-section").style.display = 'none'
                         document.getElementById("pvn"+i).innerHTML = empty;
                         document.getElementById("pvt"+i).innerHTML = empty;
-                    }else{
+                    }
+                }else{
+                    for(i = 0; i < 2; i++){
                         penalty = data.visitorPenalties[i];
-                        elementId = "pv" + (i + 1);
-                        if (penalty == null) {
+                        if(penalty == null){
                             document.getElementById("pv"+i+"-section").style.display = 'none'
                             document.getElementById("pvn"+i).innerHTML = empty;
                             document.getElementById("pvt"+i).innerHTML = empty;
-                            //document.getElementById(elementId).style.display = 'none';
-                        } else {
+                        }else{
                             penaltyDuration = moment.duration(penalty.duration);		
                             document.getElementById("pv"+i+"-section").style.display = 'block'			
                             document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
@@ -77,12 +85,57 @@
                         }
                     }
                 }
+
+
+			// Old version
+                // for (i = 0; i < 2; i++) {
+                //     if(data.homePenalties == null){
+                //         document.getElementById("ph"+i+"-section").style.display = 'none'
+                //         document.getElementById("phn"+i).innerHTML = empty;
+                //         document.getElementById("pht"+i).innerHTML = empty;
+                //     }else{
+                //         penalty = data.homePenalties[i];
+                //         elementId = "ph";
+                //         if (penalty == null) {
+                //             document.getElementById("ph"+i+"-section").style.display = 'none'
+                //             document.getElementById("phn"+i).innerHTML = empty;
+                //             document.getElementById("pht"+i).innerHTML = empty;
+                //             //document.getElementById(elementId).style.display = 'none';
+                //         } else {
+                //             penaltyDuration = moment.duration(penalty.duration);
+                //             document.getElementById("ph"+i+"-section").style.display = 'block'
+                //             document.getElementById("phn"+i).innerHTML = penalty.playerNo;
+                //             document.getElementById("pht"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+                //         }
+                //     }
+                        
+                //     if(data.visitorPenalties == null){
+                //         document.getElementById("pv"+i+"-section").style.display = 'none'
+                //         document.getElementById("pvn"+i).innerHTML = empty;
+                //         document.getElementById("pvt"+i).innerHTML = empty;
+                //     }else{
+                //         penalty = data.visitorPenalties[i];
+                //         elementId = "pv" + (i + 1);
+                //         if (penalty == null) {
+                //             document.getElementById("pv"+i+"-section").style.display = 'none'
+                //             document.getElementById("pvn"+i).innerHTML = empty;
+                //             document.getElementById("pvt"+i).innerHTML = empty;
+                //             //document.getElementById(elementId).style.display = 'none';
+                //         } else {
+                //             penaltyDuration = moment.duration(penalty.duration);		
+                //             document.getElementById("pv"+i+"-section").style.display = 'block'			
+                //             document.getElementById("pvn"+i).innerHTML = penalty.playerNo;
+                //             document.getElementById("pvt"+i).innerHTML = moment.utc(penaltyDuration.as('milliseconds')).format('mm:ss');
+                //         }
+                //     }
+                // }
+            }
 		}
 	</script>
 
 </head>
 <body>
-    <section class="position">
+    <section class="position" id="scoreboard-position">
         <div class="scoreboard">
             <div class="row g-0">
                 <!-- <div class="col">
